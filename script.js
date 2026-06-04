@@ -57,7 +57,7 @@ function GameController(
 	playerTwoName = "PlayerTwo",
 ) {
 	let gameBoard = GameBoard();
-	let board = gameBoard.getBoard();
+
 	let players = [
 		{
 			name: playerOneName,
@@ -77,31 +77,97 @@ function GameController(
 	};
 
 	const playRound = (row, column) => {
-		if (board[row][column].getValue() === 0) {
+		let board = gameBoard.getBoard();
+
+		if (board[row][column].getValue() !== 0) {
+			alert("Spot Already taken");
+		} else {
 			console.log(
 				`Placing ${activePlayer.name} token into row:${row} and column:${column}`,
 			);
 
 			gameBoard.placeValues(row, column, activePlayer.token);
+			winnerHandler();
+
 			switchPlayerTurn();
 			printRound();
-		} else {
-			alert("Spot Already taken");
 		}
 	};
+
 	const printRound = () => {
 		console.log(`${activePlayer.name} turn's `);
 		console.log(gameBoard.printBoard());
 	};
 
+	const resetRound = () => {
+		gameBoard.resetBoard();
+		console.log(gameBoard.printBoard());
+		activePlayer = players[0];
+	};
+	const winnerHandler = () => {
+		/** Row check  */
+		let board = gameBoard.getBoard();
+		let currValue = activePlayer.token;
+		let row = false;
+
+		for (let i = 0; i < board.length; i++) {
+			for (let j = 0; j < board[i].length; j++) {
+				/* console.log(currValue === board[i][j].getValue());
+				console.log(`current value : ${currValue}`);
+				console.log(`current board value : ${board[i][j].getValue()}`); */
+
+				if (currValue === board[i][j].getValue()) {
+					row = true;
+				} else {
+					row = false;
+					break;
+				}
+			}
+			if (row) {
+				break;
+			}
+		}
+		/** Row check end  */
+
+		if (row) {
+			alert(`${activePlayer.name} Won `);
+			return;
+		}
+
+		let column = false;
+		let rowIndex = 0;
+
+		for (let columnIndex = 0; columnIndex < board.length; columnIndex++) {
+			for (
+				rowIndex = 0;
+				rowIndex < board[columnIndex].length;
+				rowIndex++
+			) {
+				if (currValue === board[rowIndex][columnIndex].getValue()) {
+					column = true;
+				} else {
+					column = false;
+					break;
+				}
+			}
+			if (column) {
+				break;
+			}
+		}
+		if (column) {
+			alert(`${activePlayer.name} Won`);
+			return;
+		}
+	};
 	return {
+		resetRound,
 		playRound,
 	};
 }
 
 let game = GameController();
 game.playRound(0, 0); // player 1
-game.playRound(1, 0); // player 2
-game.playRound(0, 1); // player 1
-game.playRound(2, 0); // player 2
-game.playRound(0, 2); // player 1
+game.playRound(1, 1); // player 2
+game.playRound(1, 0); // player 1
+game.playRound(2, 1); // player 2
+game.playRound(2, 0); // player 1
