@@ -1,6 +1,6 @@
 :root {
-	--body-bg: #ffbf81;
-	--text-bg: #8c2f39;
+	--body-bg: #faf6f6;
+	--text-bg: #0d1321;
 }
 
 /* 1. Use a more-intuitive box-sizing model */
@@ -24,10 +24,30 @@
 }
 
 body {
+	display: flex;
+	justify-content: center;
+
+	min-height: 100vh;
 	/* 4. Increase line-height */
-	line-height: 1.5;
+	line-height: 1.2;
 	/* 5. Improve text rendering */
 	-webkit-font-smoothing: antialiased;
+	background-color: var(--body-bg);
+	color: var(--text-bg);
+
+	font-family:
+		"Bitcount Grid Single",
+		system-ui,
+		-apple-system,
+		BlinkMacSystemFont,
+		"Segoe UI",
+		Roboto,
+		Oxygen,
+		Ubuntu,
+		Cantarell,
+		"Open Sans",
+		"Helvetica Neue",
+		sans-serif;
 }
 
 /* 6. Improve media defaults */
@@ -78,4 +98,49 @@ h6 {
 #root,
 #__next {
 	isolation: isolate;
+}
+
+.starting-screen {
+	margin-top: 1.2rem;
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+}
+
+.heading h1 {
+	text-align: center;
+	font-size: 5rem;
+}
+
+.form {
+	display: flex;
+
+	gap: 20px;
+}
+
+.form input {
+	padding: 10px 24px;
+	border-radius: 8px;
+}
+.form label {
+	font-size: 1.2rem;
+}
+.start-game-btn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.start-game-btn button {
+	cursor: pointer;
+	font-size: 1.3rem;
+	padding: 10px 24px;
+	background-color: #dd403a;
+	color: white;
+	border-radius: 8px;
+	border: none;
+	font-weight: bold;
+}
+
+.start-game-btn button:hover {
+	background-color: #aa2723;
 }
