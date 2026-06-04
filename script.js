@@ -227,8 +227,3 @@ function GameController(
 }
 
 let game = GameController();
-game.playRound(0, 2); // player 1
-game.playRound(0, 0); // player 2
-game.playRound(1, 1); // player 1
-game.playRound(0, 1); // player 2
-game.playRound(2, 0);
