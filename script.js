@@ -87,6 +87,7 @@ function GameController(
 			);
 
 			gameBoard.placeValues(row, column, activePlayer.token);
+
 			winnerHandler();
 
 			switchPlayerTurn();
@@ -112,9 +113,11 @@ function GameController(
 
 		for (let i = 0; i < board.length; i++) {
 			for (let j = 0; j < board[i].length; j++) {
-				/* console.log(currValue === board[i][j].getValue());
+				console.log("Row start ");
+				console.log(currValue === board[i][j].getValue());
 				console.log(`current value : ${currValue}`);
-				console.log(`current board value : ${board[i][j].getValue()}`); */
+				console.log(`current board value : ${board[i][j].getValue()}`);
+				console.log("Row check end ");
 
 				if (currValue === board[i][j].getValue()) {
 					row = true;
@@ -127,12 +130,14 @@ function GameController(
 				break;
 			}
 		}
-		/** Row check end  */
 
 		if (row) {
-			alert(`${activePlayer.name} Won `);
+			alert(`${activePlayer.name} Won row  `);
 			return;
 		}
+		/** Row check end  */
+
+		/** Column  check start  */
 
 		let column = false;
 		let rowIndex = 0;
@@ -143,6 +148,15 @@ function GameController(
 				rowIndex < board[columnIndex].length;
 				rowIndex++
 			) {
+				console.log("Column start ");
+				console.log(
+					currValue === board[rowIndex][columnIndex].getValue(),
+				);
+				console.log(`current value : ${currValue}`);
+				console.log(
+					`current board value : ${board[rowIndex][columnIndex].getValue()}`,
+				);
+				console.log("Column check end ");
 				if (currValue === board[rowIndex][columnIndex].getValue()) {
 					column = true;
 				} else {
@@ -155,9 +169,56 @@ function GameController(
 			}
 		}
 		if (column) {
-			alert(`${activePlayer.name} Won`);
+			alert(`${activePlayer.name}  column`);
 			return;
 		}
+		/** Column check end  */
+
+		/** diag check start  */
+		let diag = false;
+
+		for (let i = 0; i < board.length; i++) {
+			console.log("diag  start ");
+			console.log(currValue === board[i][i].getValue());
+			console.log(`current value : ${currValue} drag `);
+			console.log(
+				`current board drag  value : ${board[i][i].getValue()}`,
+			);
+			console.log("diag  check end ");
+			if (currValue === board[i][i].getValue()) {
+				diag = true;
+			} else {
+				diag = false;
+			}
+		}
+		console.log(`${diag} diag`);
+		if (diag) {
+			alert(`${activePlayer.name} Won drag `);
+			return;
+		}
+
+		/** Diag  check end  */
+
+		/** reverse diag  start */
+
+		let reverseDiag = false;
+
+		let index = board.length - 1;
+		for (let i = 0; i < board.length; i++) {
+			if (currValue === board[i][index].getValue()) {
+				reverseDiag = true;
+				index--;
+			} else {
+				reverseDiag = false;
+				break;
+			}
+		}
+
+		if (reverseDiag) {
+			alert(`${activePlayer.name} Won reverse `);
+		}
+
+		/** reverse diag end  */
 	};
 	return {
 		resetRound,
@@ -166,8 +227,8 @@ function GameController(
 }
 
 let game = GameController();
-game.playRound(0, 0); // player 1
-game.playRound(1, 1); // player 2
-game.playRound(1, 0); // player 1
-game.playRound(2, 1); // player 2
-game.playRound(2, 0); // player 1
+game.playRound(0, 2); // player 1
+game.playRound(0, 0); // player 2
+game.playRound(1, 1); // player 1
+game.playRound(0, 1); // player 2
+game.playRound(2, 0);
