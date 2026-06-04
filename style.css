@@ -1,3 +1,8 @@
+:root {
+	--body-bg: #ffbf81;
+	--text-bg: #8c2f39;
+}
+
 /* 1. Use a more-intuitive box-sizing model */
 *,
 *::before,
