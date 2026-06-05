@@ -24,6 +24,7 @@
 }
 
 body {
+	position: relative;
 	display: flex;
 	justify-content: center;
 
@@ -194,4 +195,30 @@ h6 {
 .board button:nth-child(8),
 .board button:nth-child(9) {
 	border-bottom: none;
+}
+
+dialog {
+	border: none;
+	background-color: #fcab64;
+	text-align: center;
+
+	position: absolute;
+	top: 50%;
+	width: 350px;
+	height: auto;
+}
+
+dialog div {
+	font-size: 1.2rem;
+	color: black;
+}
+
+dialog button {
+	margin-top: 20px;
+	padding: 12px 24px;
+	background-color: #dd403a;
+	color: white;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
 }
