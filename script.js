@@ -108,8 +108,10 @@ function GameController(
 		activePlayer = players[0];
 	};
 	const winnerHandler = () => {
-		/** Row check  */
 		let board = gameBoard.getBoard();
+
+		/** Row check  */
+
 		let currValue = activePlayer.token;
 		let row = false;
 
@@ -221,6 +223,20 @@ function GameController(
 		}
 
 		/** reverse diag end  */
+		let tie = false;
+		for (let i = 0; i < board.length; i++) {
+			for (let j = 0; j < board[i].length; j++) {
+				if (board[i][j].getValue() === 0) {
+					tie = true;
+				} else {
+					tie = false;
+					break;
+				}
+			}
+		}
+		if (tie) {
+			alert("Tie");
+		}
 	};
 	return {
 		getActivePlayer,
