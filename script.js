@@ -35,14 +35,14 @@ function GameBoard() {
 }
 
 function Cell() {
-	let value = 0;
+	let value = "";
 	const addValue = (player) => {
 		value = player;
 	};
 
 	const getValue = () => value;
 	const resetValue = () => {
-		value = 0;
+		value = "";
 	};
 
 	return {
@@ -61,14 +61,13 @@ function GameController(
 	let players = [
 		{
 			name: playerOneName,
-			token: 1,
-			marker: "X",
+
+			token: "X",
 		},
 
 		{
 			name: playerTwoName,
-			token: 2,
-			marker: "O",
+			token: "O",
 		},
 	];
 
@@ -83,7 +82,7 @@ function GameController(
 	const playRound = (row, column) => {
 		let board = gameBoard.getBoard();
 
-		if (board[row][column].getValue() !== 0) {
+		if (board[row][column].getValue() !== "") {
 			alert("Spot Already taken");
 		} else {
 			console.log(
@@ -195,6 +194,7 @@ function GameController(
 				diag = true;
 			} else {
 				diag = false;
+				break;
 			}
 		}
 		console.log(`${diag} diag`);
@@ -228,7 +228,7 @@ function GameController(
 		let tie = false;
 		for (let i = 0; i < board.length; i++) {
 			for (let j = 0; j < board[i].length; j++) {
-				if (board[i][j].getValue() === 0) {
+				if (board[i][j].getValue() !== "") {
 					tie = true;
 				} else {
 					tie = false;
@@ -278,7 +278,7 @@ function ScreenController() {
 		const activePlayer = game.getActivePlayer();
 		const board = game.getBoard();
 
-		playerTurnDiv.textContent = `${activePlayer.name} turn's `;
+		playerTurnDiv.textContent = `${activePlayer.name} turn's (${activePlayer.token}) `;
 
 		for (let i = 0; i < board.length; i++) {
 			for (let j = 0; j < board[i].length; j++) {
@@ -286,9 +286,7 @@ function ScreenController() {
 
 				cellButton.dataset.row = i;
 				cellButton.dataset.column = j;
-				if (board[i][j].getValue() === activePlayer.token) {
-					cellButton.textContent = activePlayer.marker;
-				}
+				cellButton.textContent = board[i][j].getValue();
 				boardDiv.appendChild(cellButton);
 			}
 		}

@@ -147,13 +147,17 @@ h6 {
 }
 
 .board button {
-	padding: 90px;
+	font-size: 2rem;
+	color: red;
+	text-align: center;
+
 	border: 2px solid black;
 	background-color: transparent;
 }
 .board {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(3, 5rem);
 }
 
 .game {
