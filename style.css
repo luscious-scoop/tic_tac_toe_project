@@ -202,10 +202,11 @@ dialog {
 	background-color: #fcab64;
 	text-align: center;
 
-	position: absolute;
-	top: 50%;
+	/* top: 50%; */
 	width: 350px;
-	height: auto;
+}
+::backdrop {
+	background-color: rgba(0, 0, 0, 0.425);
 }
 
 dialog div {
