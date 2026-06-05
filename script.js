@@ -76,6 +76,8 @@ function GameController(
 		activePlayer = activePlayer === players[0] ? players[1] : players[0];
 	};
 
+	const getActivePlayer = () => activePlayer;
+
 	const playRound = (row, column) => {
 		let board = gameBoard.getBoard();
 
@@ -221,9 +223,50 @@ function GameController(
 		/** reverse diag end  */
 	};
 	return {
+		getActivePlayer,
 		resetRound,
 		playRound,
 	};
 }
 
-let game = GameController();
+function ScreenController() {
+	const boardDiv = document.querySelector(".board");
+	const playerTurnDiv = document.querySelector(".turn");
+
+	const startingScreen = document.querySelector(".starting-screen");
+	const playerOneInput = document.querySelector("#player1");
+	const playerTwoInput = document.querySelector("#player2");
+	const startBtn = document.querySelector("#start-btn");
+
+	const initialScreenHandler = () => {
+		let playerOneName =
+			playerOneInput.value !== "" ? playerOneInput.value : "PLayerOne";
+
+		let playerTwoName =
+			playerTwoInput.value !== "" ? playerTwoInput.value : "PLayerTwo";
+		let game = GameController(playerOneName, playerTwoName);
+		startingScreen.display = "none";
+		boardDiv.display = "grid";
+
+		return game;
+	};
+
+	const updateScreen = () => {
+		boardDiv.textContent = "";
+		const game = initialScreenHandler();
+		const activePlayer = game.getActivePlayer();
+		const board = game.getBoard();
+
+		playerTurnDiv.textContent = `${activePlayer.name} turn's `;
+
+		for (let i = 0; i < board.length; i++) {
+			for (let j = 0; j < board[i].length; j++) {
+				const cellButton = document.createElement("button");
+
+				cellButton.dataset.row = i;
+				cellButton.dataset.column = j;
+				boardDiv.appendChild(cellButton);
+			}
+		}
+	};
+}

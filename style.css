@@ -101,6 +101,7 @@ h6 {
 }
 
 .starting-screen {
+	min-height: 100vh;
 	margin-top: 1.2rem;
 	display: flex;
 	flex-direction: column;
@@ -145,6 +146,41 @@ h6 {
 	background-color: #aa2723;
 }
 
-.start-container {
-	display: none;
+.board button {
+	padding: 65px;
+	border: 2px solid black;
+	background-color: transparent;
+}
+.board {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	align-self: center;
+}
+
+.game {
+	display: flex;
+	justify-content: center;
+}
+
+.board button:nth-child(1),
+.board button:nth-child(4),
+.board button:nth-child(7) {
+	border-left: none;
+}
+
+.board button:nth-child(3),
+.board button:nth-child(6),
+.board button:nth-child(9) {
+	border-right: none;
+}
+
+.board button:nth-child(1),
+.board button:nth-child(2),
+.board button:nth-child(3) {
+	border-top: none;
+}
+.board button:nth-child(7),
+.board button:nth-child(8),
+.board button:nth-child(9) {
+	border-bottom: none;
 }
