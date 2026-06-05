@@ -62,11 +62,13 @@ function GameController(
 		{
 			name: playerOneName,
 			token: 1,
+			marker: "X",
 		},
 
 		{
 			name: playerTwoName,
 			token: 2,
+			marker: "O",
 		},
 	];
 
@@ -284,6 +286,9 @@ function ScreenController() {
 
 				cellButton.dataset.row = i;
 				cellButton.dataset.column = j;
+				if (board[i][j].getValue() === activePlayer.token) {
+					cellButton.textContent = activePlayer.marker;
+				}
 				boardDiv.appendChild(cellButton);
 			}
 		}
