@@ -226,10 +226,12 @@ function GameController(
 		getActivePlayer,
 		resetRound,
 		playRound,
+		getBoard: gameBoard.getBoard,
 	};
 }
 
 function ScreenController() {
+	let game = GameController();
 	const boardDiv = document.querySelector(".board");
 	const playerTurnDiv = document.querySelector(".turn");
 
@@ -244,16 +246,17 @@ function ScreenController() {
 
 		let playerTwoName =
 			playerTwoInput.value !== "" ? playerTwoInput.value : "PLayerTwo";
-		let game = GameController(playerOneName, playerTwoName);
-		startingScreen.display = "none";
+		game = GameController(playerOneName, playerTwoName);
+		startingScreen.style.display = "none";
 		boardDiv.display = "grid";
+		updateScreen();
 
 		return game;
 	};
 
 	const updateScreen = () => {
 		boardDiv.textContent = "";
-		const game = initialScreenHandler();
+
 		const activePlayer = game.getActivePlayer();
 		const board = game.getBoard();
 
@@ -269,4 +272,22 @@ function ScreenController() {
 			}
 		}
 	};
+
+	const BoardEventHandler = (e) => {
+		const selectedRow = e.target.dataset.row;
+		const selectedColumn = e.target.dataset.column;
+
+		if (!selectedColumn || !selectedRow) {
+			return;
+		}
+
+		game.playRound(selectedRow, selectedColumn);
+		updateScreen();
+	};
+	boardDiv.addEventListener("click", BoardEventHandler);
+
+	startBtn.addEventListener("click", () => {
+		initialScreenHandler();
+	});
 }
+ScreenController();

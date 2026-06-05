@@ -147,19 +147,26 @@ h6 {
 }
 
 .board button {
-	padding: 65px;
+	padding: 90px;
 	border: 2px solid black;
 	background-color: transparent;
 }
 .board {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	align-self: center;
 }
 
 .game {
+	flex-direction: column;
 	display: flex;
+	gap: 15px;
 	justify-content: center;
+}
+.turn {
+	text-align: center;
+
+	font-size: 2rem;
+	color: red;
 }
 
 .board button:nth-child(1),
