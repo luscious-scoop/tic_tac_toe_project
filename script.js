@@ -109,6 +109,10 @@ function GameController(
 		activePlayer = players[0];
 	};
 	const winnerHandler = () => {
+		let column = false;
+		let tie = false;
+		let reverseDiag = false;
+		let diag = false;
 		let board = gameBoard.getBoard();
 
 		/** Row check  */
@@ -137,14 +141,21 @@ function GameController(
 		}
 
 		if (row) {
-			alert(`${activePlayer.name} Won row  `);
+			/* alert(`${activePlayer.name} Won row  `); */
+			ScreenController.winnerHandlerPopUp(
+				row,
+				column,
+				diag,
+				reverseDiag,
+				tie,
+				activePlayer.name,
+			);
 			return;
 		}
 		/** Row check end  */
 
 		/** Column  check start  */
 
-		let column = false;
 		let rowIndex = 0;
 
 		for (let columnIndex = 0; columnIndex < board.length; columnIndex++) {
@@ -174,13 +185,20 @@ function GameController(
 			}
 		}
 		if (column) {
-			alert(`${activePlayer.name}  column`);
+			/* alert(`${activePlayer.name}  column`); */
+			ScreenController.winnerHandlerPopUp(
+				row,
+				column,
+				diag,
+				reverseDiag,
+				tie,
+				activePlayer.name,
+			);
 			return;
 		}
 		/** Column check end  */
 
 		/** diag check start  */
-		let diag = false;
 
 		for (let i = 0; i < board.length; i++) {
 			console.log("diag  start ");
@@ -199,15 +217,21 @@ function GameController(
 		}
 		console.log(`${diag} diag`);
 		if (diag) {
-			alert(`${activePlayer.name} Won drag `);
+			/* alert(`${activePlayer.name} Won drag `); */
+			ScreenController.winnerHandlerPopUp(
+				row,
+				column,
+				diag,
+				reverseDiag,
+				tie,
+				activePlayer.name,
+			);
 			return;
 		}
 
 		/** Diag  check end  */
 
 		/** reverse diag  start */
-
-		let reverseDiag = false;
 
 		let index = board.length - 1;
 		for (let i = 0; i < board.length; i++) {
@@ -221,11 +245,20 @@ function GameController(
 		}
 
 		if (reverseDiag) {
-			alert(`${activePlayer.name} Won reverse `);
+			/* alert(`${activePlayer.name} Won reverse `); */
+			ScreenController.winnerHandlerPopUp(
+				row,
+				column,
+				diag,
+				reverseDiag,
+				tie,
+				activePlayer.name,
+			);
+			return;
 		}
 
 		/** reverse diag end  */
-		let tie = false;
+
 		for (let i = 0; i < board.length; i++) {
 			for (let j = 0; j < board[i].length; j++) {
 				if (board[i][j].getValue() !== "") {
@@ -237,7 +270,15 @@ function GameController(
 			}
 		}
 		if (tie) {
-			alert("Tie");
+			/* alert("Tie"); */
+			ScreenController.winnerHandlerPopUp(
+				row,
+				column,
+				diag,
+				reverseDiag,
+				tie,
+				activePlayer.name,
+			);
 		}
 	};
 	return {
@@ -248,7 +289,8 @@ function GameController(
 	};
 }
 
-function ScreenController() {
+const ScreenController = (function () {
+	const gameContainer = document.querySelector(".game");
 	const dialog = document.querySelector("dialog");
 	const resetBtn = document.querySelector(".reset-btn");
 	const message = document.querySelector(".message");
@@ -269,6 +311,7 @@ function ScreenController() {
 			playerTwoInput.value !== "" ? playerTwoInput.value : "PLayerTwo";
 		game = GameController(playerOneName, playerTwoName);
 		startingScreen.style.display = "none";
+		gameContainer.style.display = "flex";
 		boardDiv.display = "grid";
 		updateScreen();
 
@@ -311,5 +354,31 @@ function ScreenController() {
 	startBtn.addEventListener("click", () => {
 		initialScreenHandler();
 	});
-}
-ScreenController();
+
+	const winnerHandlerPopUp = (
+		row = false,
+		column = false,
+		diag = false,
+		reverseDiag = false,
+		tie = false,
+		player,
+	) => {
+		if (row || column || diag || reverseDiag) {
+			message.textContent = `${player} Won!`;
+			dialog.showModal();
+		} else if (tie) {
+			message.textContent = "It's a Tie";
+			dialog.showModal();
+		}
+	};
+	const resetScreen = () => {
+		dialog.close();
+		game.resetRound();
+		gameContainer.style.display = "none";
+		startingScreen.style.display = "flex";
+	};
+	resetBtn.addEventListener("click", resetScreen);
+	return {
+		winnerHandlerPopUp,
+	};
+})();
