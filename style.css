@@ -149,7 +149,7 @@ h6 {
 }
 
 .board button {
-	font-size: 3rem;
+	font-size: 2.5rem;
 	color: red;
 	text-align: center;
 	height: 100px;
@@ -158,12 +158,12 @@ h6 {
 	background-color: transparent;
 }
 .board {
-	border: 2px solid transparent;
 	display: grid;
-	grid-template-columns: repeat(3, 2fr);
+	grid-template-columns: repeat(3, 1fr);
 }
 
 .game {
+	width: max-content;
 	flex-direction: column;
 	display: flex;
 	gap: 15px;
