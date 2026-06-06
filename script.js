@@ -249,6 +249,9 @@ function GameController(
 }
 
 function ScreenController() {
+	const dialog = document.querySelector("dialog");
+	const resetBtn = document.querySelector(".reset-btn");
+	const message = document.querySelector(".message");
 	let game = GameController();
 	const boardDiv = document.querySelector(".board");
 	const playerTurnDiv = document.querySelector(".turn");
