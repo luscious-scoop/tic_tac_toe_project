@@ -140,18 +140,6 @@ function GameController(
 			}
 		}
 
-		if (row) {
-			/* alert(`${activePlayer.name} Won row  `); */
-			ScreenController.winnerHandlerPopUp(
-				row,
-				column,
-				diag,
-				reverseDiag,
-				tie,
-				activePlayer.name,
-			);
-			return;
-		}
 		/** Row check end  */
 
 		/** Column  check start  */
@@ -184,18 +172,7 @@ function GameController(
 				break;
 			}
 		}
-		if (column) {
-			/* alert(`${activePlayer.name}  column`); */
-			ScreenController.winnerHandlerPopUp(
-				row,
-				column,
-				diag,
-				reverseDiag,
-				tie,
-				activePlayer.name,
-			);
-			return;
-		}
+
 		/** Column check end  */
 
 		/** diag check start  */
@@ -216,18 +193,6 @@ function GameController(
 			}
 		}
 		console.log(`${diag} diag`);
-		if (diag) {
-			/* alert(`${activePlayer.name} Won drag `); */
-			ScreenController.winnerHandlerPopUp(
-				row,
-				column,
-				diag,
-				reverseDiag,
-				tie,
-				activePlayer.name,
-			);
-			return;
-		}
 
 		/** Diag  check end  */
 
@@ -244,19 +209,6 @@ function GameController(
 			}
 		}
 
-		if (reverseDiag) {
-			/* alert(`${activePlayer.name} Won reverse `); */
-			ScreenController.winnerHandlerPopUp(
-				row,
-				column,
-				diag,
-				reverseDiag,
-				tie,
-				activePlayer.name,
-			);
-			return;
-		}
-
 		/** reverse diag end  */
 
 		for (let i = 0; i < board.length; i++) {
@@ -269,17 +221,17 @@ function GameController(
 				}
 			}
 		}
-		if (tie) {
-			/* alert("Tie"); */
-			ScreenController.winnerHandlerPopUp(
-				row,
-				column,
-				diag,
-				reverseDiag,
-				tie,
-				activePlayer.name,
-			);
-		}
+
+		tie = board.every((row) => row.every((cell) => cell.getValue() !== ""));
+
+		ScreenController.winnerHandlerPopUp(
+			row,
+			column,
+			diag,
+			reverseDiag,
+			tie,
+			activePlayer.name,
+		);
 	};
 	return {
 		getActivePlayer,
